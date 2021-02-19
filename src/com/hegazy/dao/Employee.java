@@ -1,4 +1,4 @@
-package com.hegazy.jsf.entities;
+package com.hegazy.dao;
 
 import javax.faces.bean.ManagedBean;
 

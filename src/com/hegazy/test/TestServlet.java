@@ -1,9 +1,8 @@
-package com.hegazy.test_JDBC;
+package com.hegazy.test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -32,24 +31,30 @@ public class TestServlet extends HttpServlet {
 		ResultSet myRs = null;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/employee", "employee", "employee");
-
-			String sql = "select * from employee;";
+			Class.forName("oracle.jdbc.OracleDriver");
+			myConn= dataSource.getConnection();
+			if (myConn != null) {
+				System.out.println("Connected DataBase.....");
+			}
+			
+			String sql = "SELECT * FROM webstudent.student";
 
 			myStmt = myConn.createStatement();
 
 			myRs = myStmt.executeQuery(sql);
-
+			
 			while (myRs.next()) {
 				String email = myRs.getString("email");
 				out.println(email);
 				System.out.println(email);
 			}
+			myConn.close();
 		} catch (Exception exc) {
 			exc.printStackTrace();
 			out.println(exc.getMessage());
 		}
+		
+		
 	}
 
 }

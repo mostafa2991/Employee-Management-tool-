@@ -1,4 +1,4 @@
-package com.hegazy.jsf.dbUtil;
+package com.hegazy.utils;
 
 
 import java.sql.Connection;
@@ -13,13 +13,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.hegazy.jsf.entities.Employee;
+import com.hegazy.dao.Employee;
 
 public class EmployeeDbUtil {
 
-	private static EmployeeDbUtil instance;
+	private static EmployeeDbUtil instance ;
 	private DataSource dataSource;
 	private String jndiName = "java:comp/env/jdbc/employee";
+	
 	
 	public static EmployeeDbUtil getInstance() throws Exception {
 		if (instance == null) {
@@ -31,6 +32,7 @@ public class EmployeeDbUtil {
 	
 	private EmployeeDbUtil() throws Exception {		
 		dataSource = getDataSource();
+		
 	}
 
 	private DataSource getDataSource() throws NamingException {
@@ -52,7 +54,7 @@ public class EmployeeDbUtil {
 		try {
 			myConn = getConnection();
 
-			String sql = "select * from employee order by name";
+			String sql = "select * from M_ElHagez.employee order by name";
 
 			myStmt = myConn.createStatement();
 
@@ -90,7 +92,7 @@ public class EmployeeDbUtil {
 		try {
 			myConn = getConnection();
 
-			String sql = "insert into employee (code, name, address,email) values (?, ?, ?, ?)";
+			String sql = "insert into M_ElHagez.employee (code, name, address,email) values (?, ?, ?, ?)";
 
 			myStmt = myConn.prepareStatement(sql);
 
@@ -116,7 +118,7 @@ public class EmployeeDbUtil {
 		try {
 			myConn = getConnection();
 
-			String sql = "select * from employee where id=?";
+			String sql = "select * from M_ElHagez.employee where id=?";
 
 			myStmt = myConn.prepareStatement(sql);
 			
@@ -156,7 +158,7 @@ public class EmployeeDbUtil {
 		try {
 			myConn = getConnection();
 
-			String sql = "update employee "
+			String sql = "update M_ElHagez.employee "
 						+ " set code=?, name=?, address=?, email=?"
 						+ " where id=?";
 
@@ -185,7 +187,7 @@ public class EmployeeDbUtil {
 		try {
 			myConn = getConnection();
 
-			String sql = "delete from employee where id=?";
+			String sql = "delete from M_ElHagez.employee where id=?";
 
 			myStmt = myConn.prepareStatement(sql);
 

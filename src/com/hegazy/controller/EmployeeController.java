@@ -1,5 +1,7 @@
-package com.hegazy.jsf.controller;
+package com.hegazy.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +14,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import com.hegazy.jsf.dbUtil.EmployeeDbUtil;
-import com.hegazy.jsf.entities.Employee;
+import com.hegazy.dao.Employee;
+import com.hegazy.utils.EmployeeDbUtil;
+import com.hegazy.utils.Schema;
 
 @ManagedBean
 @SessionScoped
@@ -23,6 +26,15 @@ public class EmployeeController {
 	private EmployeeDbUtil employeeDbUtil;
 	private Logger logger = Logger.getLogger(getClass().getName());
 	
+	static {
+		try {
+			Schema.createNewSchema();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public EmployeeController() throws Exception {
 		employees = new ArrayList<>();
 		
