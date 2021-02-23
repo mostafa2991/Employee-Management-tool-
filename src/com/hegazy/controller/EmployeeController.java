@@ -25,7 +25,35 @@ public class EmployeeController {
 	private List<Employee> employees;
 	private EmployeeDbUtil employeeDbUtil;
 	private Logger logger = Logger.getLogger(getClass().getName());
+	private String status;
+	private String alert;
 	
+	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAlert() {
+		return alert;
+	}
+
+	public void setAlert(String alert) {
+		this.alert = alert;
+	}
+
+	public EmployeeDbUtil getEmployeeDbUtil() {
+		return employeeDbUtil;
+	}
+
+	public Logger getLogger() {
+		return logger;
+	}
+
 	static {
 		try {
 			Schema.createNewSchema();
@@ -35,6 +63,7 @@ public class EmployeeController {
 			e.printStackTrace();
 		}
 	}
+	
 	public EmployeeController() throws Exception {
 		employees = new ArrayList<>();
 		
@@ -42,6 +71,7 @@ public class EmployeeController {
 	}
 	
 	public List<Employee> getEmployees() {
+		
 		return employees;
 	}
 
@@ -77,13 +107,13 @@ public class EmployeeController {
 		} catch (Exception exc) {
 			// send this to server logs
 			logger.log(Level.SEVERE, "Error adding employees", exc);
-			
 			// add error message for JSF page
 			addErrorMessage(exc);
 
 			return null;
 		}
-		
+		status = "The student with name "+ theEmployee.getName() +" created successfully ";
+		alert="alert-success";
 		return "list-employees?faces-redirect=true";
 	}
 
@@ -134,12 +164,13 @@ public class EmployeeController {
 			
 			return null;
 		}
-		
+		status = "The student with name "+ theEmployee.getName() +" updated successfully ";
+		alert="alert-success";
 		return "list-employees?faces-redirect=true";		
 	}
 	
 	public String deleteEmployee(int employeeId) {
-
+		
 		logger.info("Deleting student id: " + employeeId);
 		
 		try {
@@ -156,7 +187,8 @@ public class EmployeeController {
 			
 			return null;
 		}
-		
+		setStatus("The student with id "+ employeeId +" deleted successfully ");
+		setAlert("alert-danger");
 		return "list-employees";	
 	}	
 	
@@ -164,5 +196,6 @@ public class EmployeeController {
 		FacesMessage message = new FacesMessage("Error: " + exc.getMessage());
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
+
 	
 }

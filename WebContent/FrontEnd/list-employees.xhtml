@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+<!-- first load for JSF page -->
 <f:metadata>
   <f:event type="preRenderView" listener="#{employeeController.loadEmployees()}"/>
 </f:metadata>
@@ -21,7 +21,7 @@
 
 	<div id="wrapper">
 		<div id="header">
-			<h2>DMS Company</h2>
+			<h2>M_ElHagez Company</h2>
 		</div>
 	</div>
 
@@ -31,8 +31,10 @@
 		
 			<h:messages globalOnly="true" />
 		
-			<h:button value="Add Employee" styleClass="add-employee-button" outcome="add-employee-form"/>			
-
+			<h:button value="Add Employee" styleClass="add-employee-button" outcome="add-employee-form"/>	
+			  
+            <p class="#{employeeController.alert}" id="alert"> #{employeeController.status} </p>
+                      
 			<h:form>
 						
 			<h:dataTable value="#{employeeController.employees}" var="tempEmployee"
@@ -93,6 +95,9 @@
 		</div>
 		
 	</div>
-
+	
+	 <!-- javascript -->
+	 <h:outputScript library="js" name="app.js" />
+   <!-- <script type="text/javascript" src="JS/app.js"></script> -->
 </h:body>
 </html>

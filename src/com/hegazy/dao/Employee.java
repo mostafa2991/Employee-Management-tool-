@@ -21,6 +21,12 @@ public class Employee {
 		this.address = address;
 		this.email = email;
 	}
+	public Employee(String code, String name, String address, String email) {
+		this.code = code;
+		this.name = name;
+		this.address = address;
+		this.email = email;
+	}
 
 	public int getId() {
 		return id;
